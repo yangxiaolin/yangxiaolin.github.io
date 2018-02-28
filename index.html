@@ -48,7 +48,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -58,6 +58,140 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-JS数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/28/JS数据类型/" class="article-date">
+  <time datetime="2018-02-28T04:41:26.000Z" itemprop="datePublished">2018-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/28/JS数据类型/">JS数据类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JS数据类型"><a href="#JS数据类型" class="headerlink" title="JS数据类型"></a>JS数据类型</h2><ul>
+<li><a href="http://es5.github.io/#x4.3.2" target="_blank" rel="noopener">Primitive value</a> (String, Number, Boolean, Undefined, Null, Symbol) -&gt; 基本数据类型</li>
+<li>Reference value (Object) -&gt; 引用类型</li>
+</ul>
+<h2 id="存储位置"><a href="#存储位置" class="headerlink" title="存储位置"></a>存储位置</h2><ul>
+<li>Primitive value<ul>
+<li>存储在栈内存中</li>
+<li>栈内存里包括了变量的标识符和变量的值</li>
+<li>在栈内存里大小固定</li>
+</ul>
+</li>
+<li>Reference value<ul>
+<li>存储在栈内存和堆内存里</li>
+<li>栈内存保存变量标识符和指向堆内存中该对象的指针</li>
+<li>堆内存里保存了变量的值</li>
+</ul>
+</li>
+</ul>
+<h2 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h2><h3 id="Primitive-value"><a href="#Primitive-value" class="headerlink" title="Primitive value"></a>Primitive value</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>;</span><br><span class="line">b = a;</span><br></pre></td></tr></table></figure>
+<p>  在执行<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = a</span><br></pre></td></tr></table></figure></p>
+<p>  时，在栈内存里新开辟一块空间，拷贝a的值(1)并存储在这块空间。将b指向这块空间。<br><br>  即a和b这块内存空间里都保存了一个数字(1)。<br>  如果可以访问内存地址(&amp;为取址符, *为指针)，则:<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ma = &amp;a; <span class="comment">//ma为a在内存里的地址(js不允许直接访问内存，这里借用一下C的语法)</span></span><br><span class="line">mb = &amp;b; <span class="comment">//mb为b在内存里的地址</span></span><br><span class="line">ma != mb; <span class="comment">//两块不同的内存</span></span><br><span class="line">*ma == *mb; <span class="comment">// 1 == 1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Reference-value"><a href="#Reference-value" class="headerlink" title="Reference value"></a>Reference value</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = &#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;;</span><br><span class="line">b = a;</span><br></pre></td></tr></table></figure>
+<p>  在执行<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = &#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>  时，将对象<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>  在堆内存里的地址(假如为0x7fff5cc109d4)赋值给a。<br><br>  即存储在栈内存里a的值为(0x7fff5cc109d4), 则内存地址是0x7fff5cc109d4的这块内存里面存储的值为<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>  在执行<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = a</span><br></pre></td></tr></table></figure></p>
+<p>  时，在栈内存里新开辟一块空间，将a的值(0x7fff5cc109d4)存储在这块空间。将b指向这块空间。<br><br>  即a和b这块内存空间里都只是保存了一个地址(0x7fff5cc109d4)。<br>  则：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ma = &amp;a; <span class="comment">// ma为a在内存里的地址</span></span><br><span class="line">mb = &amp;b; <span class="comment">// mb为b在内存里的地址</span></span><br><span class="line">ma != mb; <span class="comment">// 两块不同的内存</span></span><br><span class="line">*ma == *mb; <span class="comment">// 0x7fff5cc109d4 == 0x7fff5cc109d4</span></span><br><span class="line">**ma == **mb <span class="comment">// **ma和**mb都指向了地址为0x7fff5cc109d4的这块内存</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/28/JS数据类型/" data-id="cje6qyvlw0003l52n8x9i67gk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Timer-in-JS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/28/Timer-in-JS/" class="article-date">
+  <time datetime="2018-02-28T03:24:21.000Z" itemprop="datePublished">2018-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/28/Timer-in-JS/">Timer in JS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="读阮一峰文章记录"><a href="#读阮一峰文章记录" class="headerlink" title="读阮一峰文章记录"></a>读<a href="https://juejin.im/entry/5a8fb6266fb9a0635015285f" target="_blank" rel="noopener">阮一峰文章</a>记录</h2><h3 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//test.js</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">1</span>));</span><br><span class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">2</span>));</span><br><span class="line">process.nextTick(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">3</span>));</span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">4</span>));</span><br><span class="line">(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">5</span>))();</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ node test.js</span><br><span class="line">5</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">1</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<h2 id="JS-异步任务分类"><a href="#JS-异步任务分类" class="headerlink" title="JS 异步任务分类"></a>JS 异步任务分类</h2><ul>
+<li>追加在本轮循环(Event Loop)的异步任务</li>
+<li>追加在次轮循环的异步任务</li>
+</ul>
+<p><code>本轮循环一定早于次轮循环执行</code></p>
+<h3 id="追加在本轮循环的异步任务"><a href="#追加在本轮循环的异步任务" class="headerlink" title="追加在本轮循环的异步任务"></a>追加在本轮循环的异步任务</h3><ul>
+<li>process.nextTick(所有异步任务最快执行)</li>
+<li>Promise的回调函数</li>
+</ul>
+<h3 id="追加在次轮循环的异步任务"><a href="#追加在次轮循环的异步任务" class="headerlink" title="追加在次轮循环的异步任务"></a>追加在次轮循环的异步任务</h3><ul>
+<li>setTimeout的回调函数</li>
+<li>setInterval的回调函数</li>
+<li>setImmediate的回调函数</li>
+</ul>
+<h4 id="微任务-microtask"><a href="#微任务-microtask" class="headerlink" title="微任务(microtask)"></a>微任务(microtask)</h4><ul>
+<li>Promise对象的回调函数，会进入异步任务里面的”微任务”队列。</li>
+<li>微任务队列追加在process.nextTick队列的后面。</li>
+<li>只有前一个队列全部清空以后，才会执行下一个队列</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">process.nextTick(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">1</span>));</span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">2</span>));</span><br><span class="line">process.nextTick(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">3</span>));</span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="number">4</span>));</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="本轮循环执行顺序"><a href="#本轮循环执行顺序" class="headerlink" title="本轮循环执行顺序"></a>本轮循环执行顺序</h2><ul>
+<li>同步任务</li>
+<li>process.nextTick()</li>
+<li>Promise回调(微任务)</li>
+</ul>
+<h2 id="次轮循环执行顺序"><a href="#次轮循环执行顺序" class="headerlink" title="次轮循环执行顺序"></a>次轮循环执行顺序</h2><ul>
+<li>setTimeout</li>
+<li>setImmediate</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/28/Timer-in-JS/" data-id="cje6qyvly0004l52n8b7rx9xk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Timer/">Timer</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-js-useful-skill" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -89,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/26/js-useful-skill/" data-id="cje3rt2sx0001st2nosifplnj" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/26/js-useful-skill/" data-id="cje6qyvm10006l52n4xukcvzm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
@@ -139,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/26/Quick-start-Node-js/" data-id="cje3rt2sr0000st2ni71dmtt5" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/26/Quick-start-Node-js/" data-id="cje6qyvl50000l52ncecrl378" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
@@ -164,7 +298,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
     </div>
   </div>
 
@@ -174,14 +308,14 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
@@ -191,9 +325,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/28/JS数据类型/">JS数据类型</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/28/Timer-in-JS/">Timer in JS</a>
+          </li>
         
           <li>
             <a href="/2018/02/26/js-useful-skill/">Js useful skill</a>

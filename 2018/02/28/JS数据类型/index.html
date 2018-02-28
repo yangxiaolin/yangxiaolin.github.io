@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS数据类型 | xiaolin Yang&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JS数据类型 Primitive value (String, Number, Boolean, Undefined, Null, Symbol) -&amp;gt; 基本数据类型 Reference value (Object) -&amp;gt; 引用类型  存储位置 Primitive value 存储在栈内存中 栈内存里包括了变量的标识符和变量的值 在栈内存里大小固定   Reference value">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS数据类型">
+<meta property="og:url" content="http://yoursite.com/2018/02/28/JS数据类型/index.html">
+<meta property="og:site_name" content="xiaolin Yang&#39;s blog">
+<meta property="og:description" content="JS数据类型 Primitive value (String, Number, Boolean, Undefined, Null, Symbol) -&amp;gt; 基本数据类型 Reference value (Object) -&amp;gt; 引用类型  存储位置 Primitive value 存储在栈内存中 栈内存里包括了变量的标识符和变量的值 在栈内存里大小固定   Reference value">
+<meta property="og:updated_time" content="2018-02-28T06:06:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS数据类型">
+<meta name="twitter:description" content="JS数据类型 Primitive value (String, Number, Boolean, Undefined, Null, Symbol) -&amp;gt; 基本数据类型 Reference value (Object) -&amp;gt; 引用类型  存储位置 Primitive value 存储在栈内存中 栈内存里包括了变量的标识符和变量的值 在栈内存里大小固定   Reference value">
+  
+    <link rel="alternate" href="/atom.xml" title="xiaolin Yang&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">xiaolin Yang&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JS数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/28/JS数据类型/" class="article-date">
+  <time datetime="2018-02-28T04:41:26.000Z" itemprop="datePublished">2018-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JS数据类型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JS数据类型"><a href="#JS数据类型" class="headerlink" title="JS数据类型"></a>JS数据类型</h2><ul>
+<li><a href="http://es5.github.io/#x4.3.2" target="_blank" rel="noopener">Primitive value</a> (String, Number, Boolean, Undefined, Null, Symbol) -&gt; 基本数据类型</li>
+<li>Reference value (Object) -&gt; 引用类型</li>
+</ul>
+<h2 id="存储位置"><a href="#存储位置" class="headerlink" title="存储位置"></a>存储位置</h2><ul>
+<li>Primitive value<ul>
+<li>存储在栈内存中</li>
+<li>栈内存里包括了变量的标识符和变量的值</li>
+<li>在栈内存里大小固定</li>
+</ul>
+</li>
+<li>Reference value<ul>
+<li>存储在栈内存和堆内存里</li>
+<li>栈内存保存变量标识符和指向堆内存中该对象的指针</li>
+<li>堆内存里保存了变量的值</li>
+</ul>
+</li>
+</ul>
+<h2 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h2><h3 id="Primitive-value"><a href="#Primitive-value" class="headerlink" title="Primitive value"></a>Primitive value</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>;</span><br><span class="line">b = a;</span><br></pre></td></tr></table></figure>
+<p>  在执行<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = a</span><br></pre></td></tr></table></figure></p>
+<p>  时，在栈内存里新开辟一块空间，拷贝a的值(1)并存储在这块空间。将b指向这块空间。<br><br>  即a和b这块内存空间里都保存了一个数字(1)。<br>  如果可以访问内存地址(&amp;为取址符, *为指针)，则:<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ma = &amp;a; <span class="comment">//ma为a在内存里的地址(js不允许直接访问内存，这里借用一下C的语法)</span></span><br><span class="line">mb = &amp;b; <span class="comment">//mb为b在内存里的地址</span></span><br><span class="line">ma != mb; <span class="comment">//两块不同的内存</span></span><br><span class="line">*ma == *mb; <span class="comment">// 1 == 1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Reference-value"><a href="#Reference-value" class="headerlink" title="Reference value"></a>Reference value</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = &#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;;</span><br><span class="line">b = a;</span><br></pre></td></tr></table></figure>
+<p>  在执行<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = &#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>  时，将对象<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>  在堆内存里的地址(假如为0x7fff5cc109d4)赋值给a。<br><br>  即存储在栈内存里a的值为(0x7fff5cc109d4), 则内存地址是0x7fff5cc109d4的这块内存里面存储的值为<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">'c'</span>: <span class="number">1</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>  在执行<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = a</span><br></pre></td></tr></table></figure></p>
+<p>  时，在栈内存里新开辟一块空间，将a的值(0x7fff5cc109d4)存储在这块空间。将b指向这块空间。<br><br>  即a和b这块内存空间里都只是保存了一个地址(0x7fff5cc109d4)。<br>  则：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ma = &amp;a; <span class="comment">// ma为a在内存里的地址</span></span><br><span class="line">mb = &amp;b; <span class="comment">// mb为b在内存里的地址</span></span><br><span class="line">ma != mb; <span class="comment">// 两块不同的内存</span></span><br><span class="line">*ma == *mb; <span class="comment">// 0x7fff5cc109d4 == 0x7fff5cc109d4</span></span><br><span class="line">**ma == **mb <span class="comment">// **ma和**mb都指向了地址为0x7fff5cc109d4的这块内存</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/28/JS数据类型/" data-id="cje6qyvlw0003l52n8x9i67gk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/28/Timer-in-JS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Timer in JS</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/02/28/JS数据类型/">JS数据类型</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/28/Timer-in-JS/">Timer in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/26/js-useful-skill/">Js useful skill</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/26/Quick-start-Node-js/">Quick start Node.js</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 xiaolin Yang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
