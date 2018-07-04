@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://xiaolinyang.com/2018/07/03/JS隐式转换/index.html">
 <meta property="og:site_name" content="xiaolin Yang&#39;s blog">
 <meta property="og:description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0 JS的加号+ 数字相加 121 + 1; //21 + NaN; // NaN  字符串相加">
-<meta property="og:updated_time" content="2018-07-04T01:27:50.902Z">
+<meta property="og:updated_time" content="2018-07-04T02:06:09.917Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS隐式转换">
 <meta name="twitter:description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0 JS的加号+ 数字相加 121 + 1; //21 + NaN; // NaN  字符串相加">
@@ -95,9 +95,13 @@
 </li>
 <li><p>类型转换(其他类型转数字)</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">""</span> <span class="comment">// 0</span></span><br><span class="line">+[] <span class="comment">// 0</span></span><br><span class="line">+&#123;&#125; <span class="comment">// NaN</span></span><br><span class="line">+<span class="string">'123'</span> <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+<p>operand + operand = result</p>
 </li>
+<li>使用ToPrimitive运算转换左与右运算元为原始数据类型值(primitive)</li>
+<li>在第1步转换后，如果有运算元出现原始数据类型是”字符串”类型值时，则另一运算元作强制转换为字符串，然后作字符串的连接运算(concatenation)</li>
+<li>在其他情况时，所有运算元都会转换为原始数据类型的”数字”类型值，然后作数学的相加运算(addition)</li>
 </ul>
-<h1 id="JS-ToPrimitive-input-PreferredType-方法"><a href="#JS-ToPrimitive-input-PreferredType-方法" class="headerlink" title="JS ToPrimitive(input, PreferredType?)方法"></a>JS ToPrimitive(input, PreferredType?)方法</h1><p>  input代表代入的值，而PreferredType可以是数字(Number)或字符串(String)其中一种。PreferredType代表”优先的”、”首选的”的要进行转换到哪一种原始类型，转换的步骤会依这里的值而有所不同。如果没有提供这个值也就是预设情况，则会设置转换的hint值为”default”。这个首选的转换原始类型的指示(hint值)，是在作内部转换时由JS视情况自动加上的，一般情况就是预设值。预设值的转换步骤与PreferredType为数字的转换步骤一致(Date对象列外，Date对象会覆盖PreferredType的默认行为，使得PreferredType的默认值为String)。</p>
+<h1 id="JS-ToPrimitive方法"><a href="#JS-ToPrimitive方法" class="headerlink" title="JS ToPrimitive方法"></a>JS <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-toprimitive" target="_blank" rel="noopener">ToPrimitive</a>方法</h1><p>  input代表代入的值，而PreferredType可以是数字(Number)或字符串(String)其中一种。PreferredType代表”优先的”、”首选的”的要进行转换到哪一种原始类型，转换的步骤会依这里的值而有所不同。如果没有提供这个值也就是预设情况，则会设置转换的hint值为”default”。这个首选的转换原始类型的指示(hint值)，是在作内部转换时由JS视情况自动加上的，一般情况就是预设值。预设值的转换步骤与PreferredType为数字的转换步骤一致(Date对象列外，Date对象会覆盖PreferredType的默认行为，使得PreferredType的默认值为String)。</p>
 <ul>
 <li><p>PreferredType为数字(Number)</p>
 <ul>
@@ -140,7 +144,7 @@
 <li><p>Function</p>
 <ul>
 <li>valueOf =&gt; 函数本身</li>
-<li>toString =&gt; 函数中包含的代码转为字符串值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> someFunc = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>(someFunc) <span class="comment">// () =&gt; (&#123;&#125;)</span></span><br></pre></td></tr></table></figure>
+<li>toString =&gt; 函数中包含的代码转为字符串值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> someFunc = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;)</span><br><span class="line"><span class="built_in">String</span>(someFunc) <span class="comment">// () =&gt; (&#123;&#125;)</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -150,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjj6g19fe00013h2nqnz2ufsl" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjj6he3ge0005jp2nq5gyai7e" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
