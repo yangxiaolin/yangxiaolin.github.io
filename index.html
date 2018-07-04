@@ -59,6 +59,106 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JS隐式转换" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/03/JS隐式转换/" class="article-date">
+  <time datetime="2018-07-03T05:24:02.000Z" itemprop="datePublished">2018-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/03/JS隐式转换/">JS隐式转换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p>  所有例子均在<font size="4" color="#03a9f4">Safari(11.1)</font>, <font size="4" color="#03a9f4">Chrome(67.0.3396.99)</font>, <font size="4" color="#03a9f4">Node(v10.4.1)</font>中测试过，如果在其他浏览器中有不一致，烦请指出。</p>
+<h1 id="开胃菜😋"><a href="#开胃菜😋" class="headerlink" title="开胃菜😋"></a>开胃菜😋</h1>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">// "[object Object]"</span></span><br><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<h1 id="JS的加号"><a href="#JS的加号" class="headerlink" title="JS的加号+"></a>JS的加号+</h1><ul>
+<li><p>数字相加</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="number">1</span>; <span class="comment">//2</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">NaN</span>; <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串相加(两个运算元中只要有一个运算元是字符串，最后的结果就一定是字符串)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'1'</span> + <span class="string">'1'</span> <span class="comment">// '11'</span></span><br><span class="line"><span class="number">1</span>   + <span class="string">'1'</span> <span class="comment">// '11'</span></span><br><span class="line"><span class="string">'1'</span> + <span class="number">1</span> <span class="comment">// '11'</span></span><br><span class="line"><span class="number">1</span> + &#123;&#125; <span class="comment">// '1[object Object]'</span></span><br><span class="line"><span class="comment">//&#123;&#125;(A) 通过 ToPrimitive要转换成数字，则先调用&#123;&#125;(A)的valueOf方法，得到的还是&#123;&#125;(B)</span></span><br><span class="line"><span class="comment">//由于&#123;&#125;(B)不是原始数据类型，则调用&#123;&#125;(A)的toString方法，得到'[object Object]',</span></span><br><span class="line"><span class="comment">// 1 + '[object Object]' 则为 '1[object Object]'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型转换(其他类型转数字)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+<span class="string">""</span> <span class="comment">// 0</span></span><br><span class="line">+[] <span class="comment">// 0</span></span><br><span class="line">+&#123;&#125; <span class="comment">// NaN</span></span><br><span class="line">+<span class="string">'123'</span> <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="JS-ToPrimitive-input-PreferredType-方法"><a href="#JS-ToPrimitive-input-PreferredType-方法" class="headerlink" title="JS ToPrimitive(input, PreferredType?)方法"></a>JS ToPrimitive(input, PreferredType?)方法</h1><p>  input代表代入的值，而PreferredType可以是数字(Number)或字符串(String)其中一种。PreferredType代表”优先的”、”首选的”的要进行转换到哪一种原始类型，转换的步骤会依这里的值而有所不同。如果没有提供这个值也就是预设情况，则会设置转换的hint值为”default”。这个首选的转换原始类型的指示(hint值)，是在作内部转换时由JS视情况自动加上的，一般情况就是预设值。预设值的转换步骤与PreferredType为数字的转换步骤一致(Date对象列外，Date对象会覆盖PreferredType的默认行为，使得PreferredType的默认值为String)。</p>
+<ul>
+<li><p>PreferredType为数字(Number)</p>
+<ul>
+<li>如果input是原始数据类型，则直接返回input</li>
+<li>否则，如果input是个对象时，则调用对象的valueOf()方法，如果能得到原始数据类型的值，则返回这个值</li>
+<li>否则，如果input是个对象时，调用对象的toString()方法，如果能得到原始数据类型的值，则返回这个值</li>
+<li>否则，抛出TypeError错误</li>
+</ul>
+</li>
+<li><p>PreferredType为字符串(String)</p>
+<ul>
+<li>如果input是原始数据类型，则直接返回input</li>
+<li>否则，如果input是个对象时，调用对象的toString()方法，如果能得到原始数据类型的值，则返回这个值</li>
+<li>否则，如果input是个对象时，则调用对象的valueOf()方法，如果能得到原始数据类型的值，则返回这个值</li>
+<li>否则，抛出TypeError错误</li>
+</ul>
+</li>
+</ul>
+<h1 id="Object-Array-Date-Function-的valueOf与toString转换结果"><a href="#Object-Array-Date-Function-的valueOf与toString转换结果" class="headerlink" title="Object, Array, Date, Function 的valueOf与toString转换结果"></a>Object, Array, Date, Function 的valueOf与toString转换结果</h1><ul>
+<li><p>Object </p>
+<ul>
+<li>valueOf =&gt; 对象本身</li>
+<li>toString =&gt; “[object Object]”</li>
+</ul>
+</li>
+<li><p>Array</p>
+<ul>
+<li>valueOf =&gt; 数组本身</li>
+<li>toString =&gt; 相当于调用Array.prototype.join</li>
+</ul>
+</li>
+<li><p>Date</p>
+<ul>
+<li>valueOf =&gt; 给定的时间转为UNIX时间(自1 January 1970 00:00:00 UTC起算)，但是以微秒计算的数字值</li>
+<li>toString =&gt; 本地化的时间字符串</li>
+<li>Date对象在进行加号运算时，它会优先使用toString来进行转换，这与其他对象<font size="5" color="#f00">不同</font>（其他对象均为先调用valueOf）。要得出Date对象中的valueOf返回值，需要使用一元加号(+)，来强制转换它为数字类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>()) <span class="comment">// "1Wed Jul 04 2018 09:20:47 GMT+0800 (中国标准时间)" //笔者当前时间</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Function</p>
+<ul>
+<li>valueOf =&gt; 函数本身</li>
+<li>toString =&gt; 函数中包含的代码转为字符串值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> someFunc = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">String</span>(someFunc) <span class="comment">// () =&gt; (&#123;&#125;)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h1><p>  Symbol不算是一般的值也不是对象，它并没有内部自动转型的设计，所以完全不能直接用于加法运算，使用时会报错。<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a number</span></span><br><span class="line"><span class="string">'1'</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a string</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"><a href="#⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。" class="headerlink" title="⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"></a>⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。</h1>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjj6g19fe00013h2nqnz2ufsl" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JS变量提升" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/05/30/JS变量提升/" class="article-date">
@@ -104,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjhsy1t4e0001zx2nvbjcinto" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjj6g19f800003h2n1yceb7l5" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li></ul>
@@ -147,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/04/08/JS-深拷贝/" data-id="cjhsy1t490000zx2n5uxz93y6" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/04/08/JS-深拷贝/" data-id="cjj6g19gb00063h2ns6a0t4d2" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-拷贝/">JavaScript 拷贝</a></li></ul>
@@ -212,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjhsy1t4k0003zx2n7eanpx6p" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjj6g19gd00073h2npdcuxxtl" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -281,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjhsy1t4l0004zx2npjjlbeg1" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjj6g19gj000c3h2n2ilyxeci" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Timer/">Timer</a></li></ul>
@@ -323,7 +423,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjhsy1t4q0008zx2nccvxpij2" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjj6g19gh000b3h2ngeg1wrdt" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
@@ -373,7 +473,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjhsy1t4o0005zx2nhu41l6rm" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjj6g19gf00093h2n0i8kbysq" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
@@ -417,7 +517,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
   </div>
 
@@ -428,6 +528,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/07/03/JS隐式转换/">JS隐式转换</a>
+          </li>
         
           <li>
             <a href="/2018/05/30/JS变量提升/">JS变量提升</a>
@@ -443,10 +547,6 @@
         
           <li>
             <a href="/2018/02/28/Timer-in-JS/">Timer in JS</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/26/js-useful-skill/">Js useful skill</a>
           </li>
         
       </ul>
