@@ -5,17 +5,17 @@
   
   <title>JS隐式转换 | xiaolin Yang&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0 JS的加号+ 数字相加 121 + 1; //21 + NaN; // NaN  字符串相加">
+  <meta name="description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12345678910111213[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0[] + [] // &quot;&quot;true + true + true">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS隐式转换">
 <meta property="og:url" content="http://xiaolinyang.com/2018/07/03/JS隐式转换/index.html">
 <meta property="og:site_name" content="xiaolin Yang&#39;s blog">
-<meta property="og:description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0 JS的加号+ 数字相加 121 + 1; //21 + NaN; // NaN  字符串相加">
-<meta property="og:updated_time" content="2018-07-04T02:06:09.917Z">
+<meta property="og:description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12345678910111213[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0[] + [] // &quot;&quot;true + true + true">
+<meta property="og:updated_time" content="2018-07-06T04:50:24.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS隐式转换">
-<meta name="twitter:description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0 JS的加号+ 数字相加 121 + 1; //21 + NaN; // NaN  字符串相加">
+<meta name="twitter:description" content="声明  所有例子均在Safari(11.1), Chrome(67.0.3396.99), Node(v10.4.1)中测试过，如果在其他浏览器中有不一致，烦请指出。 开胃菜😋  12345678910111213[] + &amp;#123;&amp;#125; // &quot;[object Object]&quot;&amp;#123;&amp;#125; + [] // 0[] + [] // &quot;&quot;true + true + true">
   
     <link rel="alternate" href="/atom.xml" title="xiaolin Yang&#39;s blog" type="application/atom+xml">
   
@@ -85,7 +85,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p>  所有例子均在<font size="4" color="#03a9f4">Safari(11.1)</font>, <font size="4" color="#03a9f4">Chrome(67.0.3396.99)</font>, <font size="4" color="#03a9f4">Node(v10.4.1)</font>中测试过，如果在其他浏览器中有不一致，烦请指出。</p>
-<h1 id="开胃菜😋"><a href="#开胃菜😋" class="headerlink" title="开胃菜😋"></a>开胃菜😋</h1>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">// "[object Object]"</span></span><br><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<h1 id="开胃菜😋"><a href="#开胃菜😋" class="headerlink" title="开胃菜😋"></a>开胃菜😋</h1>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">// "[object Object]"</span></span><br><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br><span class="line">[] + [] <span class="comment">// ""</span></span><br><span class="line"><span class="literal">true</span> + <span class="literal">true</span> + <span class="literal">true</span> <span class="comment">// 3</span></span><br><span class="line"><span class="literal">true</span> - <span class="literal">true</span> <span class="comment">// 0</span></span><br><span class="line"><span class="literal">true</span> == <span class="number">1</span> <span class="comment">// true</span></span><br><span class="line"><span class="literal">true</span> === <span class="number">1</span> <span class="comment">// false</span></span><br><span class="line">! + [] + [] + ![] <span class="comment">// "truefalse"</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  ! + [] 这里的+是一元运算符</span></span><br><span class="line"><span class="comment">  ! + [] + [] + ![] =&gt; !(+[]) + [] + ![] =&gt; !(0) + [] + false =&gt; true + '' + false =&gt; 'truefalse'</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">[] == <span class="number">0</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <h1 id="JS的加号"><a href="#JS的加号" class="headerlink" title="JS的加号+"></a>JS的加号+</h1><ul>
 <li><p>数字相加</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="number">1</span>; <span class="comment">//2</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">NaN</span>; <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
@@ -154,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjj6he3ge0005jp2nq5gyai7e" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjj9i508x0001h02n4b3g7dnd" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
