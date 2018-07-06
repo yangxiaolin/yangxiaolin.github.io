@@ -147,11 +147,12 @@
 </li>
 </ul>
 <h1 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h1><p>  Symbol不算是一般的值也不是对象，它并没有内部自动转型的设计，所以完全不能直接用于加法运算，使用时会报错。<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a number</span></span><br><span class="line"><span class="string">'1'</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a string</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"><a href="#⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。" class="headerlink" title="⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"></a>⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。</h1>
+<h1 id="⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"><a href="#⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。" class="headerlink" title="⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"></a>⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。</h1><h1 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h1>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">b</span>:<span class="number">42</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = &#123;<span class="attr">b</span>:<span class="number">43</span>&#125;</span><br><span class="line"></span><br><span class="line">a &lt; b   <span class="comment">// false</span></span><br><span class="line">a == b  <span class="comment">// false</span></span><br><span class="line">a &gt; b   <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">a &lt;= b  <span class="comment">// true</span></span><br><span class="line">a &gt;= b  <span class="comment">// true</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  根据规范a &lt;= b被处理为b &lt; a，然后将结果反转</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjj9i508x0001h02n4b3g7dnd" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjj9ro7ti0000w42no3tqeo10" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -208,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjj9i50940004h02nn9rgrw7y" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjj9ro7u20003w42n7kbi4h2m" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li></ul>
@@ -251,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/04/08/JS-深拷贝/" data-id="cjj9i508r0000h02no3vmsidg" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/04/08/JS-深拷贝/" data-id="cjj9ro7tw0001w42nfuzm3p6f" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-拷贝/">JavaScript 拷贝</a></li></ul>
@@ -316,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjj9i50920003h02nvnm5v2vj" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjj9ro7u50005w42nn655l765" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -385,7 +386,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjj9i509a0008h02ni02n68xu" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjj9ro7ua000aw42nwlznn7wd" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Timer/">Timer</a></li></ul>
@@ -427,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjj9i509c0009h02nlbyc04vp" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjj9ro7u70008w42nqhcr834u" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
@@ -477,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjj9i50960005h02nh6bfu7ph" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjj9ro7u30004w42nnb3j3e86" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
