@@ -59,6 +59,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-模拟Array-prototype-reduce" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/19/模拟Array-prototype-reduce/" class="article-date">
+  <time datetime="2018-07-19T06:24:22.000Z" itemprop="datePublished">2018-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/19/模拟Array-prototype-reduce/">模拟Array.prototype.reduce</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>  突然写这个的原因是面头条前端岗位的时候面试官出的一个题目。当时不会，因为以前只用过</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> prev + next, <span class="number">0</span>) <span class="comment">// output 10 (1+ 2 + 3 + 4)</span></span><br><span class="line">[[<span class="number">1</span>,<span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]].reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> prev.concat(next)) <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 统计字符串中数字出现的次数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="string">'12345678954543'</span>.split(<span class="string">''</span>).reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> &#123;</span><br><span class="line">  prev[next] ? prev[next]++ : prev[next] = <span class="number">1</span></span><br><span class="line">  <span class="keyword">return</span> prev</span><br><span class="line">&#125;, &#123;&#125;) <span class="comment">// &#123;1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1&#125;</span></span><br></pre></td></tr></table></figure>
+<p>  而没有深入了解过这个方法</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">语法</a></h2>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.reduce(callback[, initialValue])</span><br></pre></td></tr></table></figure>
+<p>  callback有4个参数，分别是<b>accumulator</b>, <b>currentValue</b>, <b>currentIndex</b>,<br>  <b>array</b><br>  其中：currentIndex，array是可选的。<br>  4个参数分别代表的意义是：</p>
+<ul>
+<li>accumulator： 累加器累加回调的返回值;它是在最后一次调用回调时返回的累计值。如果提供 initialValue，它的默认值就是<br>initialValue</li>
+<li>currentValue：当前参与计算的元素</li>
+<li>currentValue：当前参与计算的元素的数组下标</li>
+<li>array：当前参与运算的数组</li>
+</ul>
+<h2 id="⚠️注意"><a href="#⚠️注意" class="headerlink" title="⚠️注意"></a>⚠️注意</h2><p>  在空数组上执行<code>reduce</code>时，如果不提供<font size="3" color="#0f0">initialValue</font>会抛出错误🙅‍♂️。</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].reduce(<span class="function">(<span class="params">a, v</span>) =&gt;</span> a + v) <span class="comment">// Uncaught TypeError: Reduce of empty array with no initial value</span></span><br></pre></td></tr></table></figure>
+<h2 id="Polyfill"><a href="#Polyfill" class="headerlink" title="Polyfill"></a>Polyfill</h2><p>  polyfill猛戳<a href="(https://gist.github.com/lski/0eae0d2738831b6b0ec2b88a8a603952">这里</a>)。我帮忙搬运下</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Production steps of ECMA-262, Edition 5, 15.4.4.21</span></span><br><span class="line"><span class="comment">// Reference: http://es5.github.io/#x15.4.4.21</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Array</span>.prototype.reduce) &#123;</span><br><span class="line">  <span class="built_in">Array</span>.prototype.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">callback <span class="regexp">/*, initialValue*/</span></span>) </span>&#123;</span><br><span class="line"><span class="meta">    'use strict'</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Array.prototype.reduce called on null or undefined'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> callback !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(callback + <span class="string">' is not a function'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> t = <span class="built_in">Object</span>(<span class="keyword">this</span>), len = t.length &gt;&gt;&gt; <span class="number">0</span>, k = <span class="number">0</span>, value;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">arguments</span>.length == <span class="number">2</span>) &#123;</span><br><span class="line">      value = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">while</span> (k &lt; len &amp;&amp; !(k <span class="keyword">in</span> t)) &#123;</span><br><span class="line">        k++; </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (k &gt;= len) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Reduce of empty array with no initial value'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      value = t[k++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (; k &lt; len; k++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (k <span class="keyword">in</span> t) &#123;</span><br><span class="line">        value = callback(value, t[k], k, t);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xiaolinyang.com/2018/07/19/模拟Array-prototype-reduce/" data-id="cjjs7dur10009bx2n3aqfd5a6" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-JS隐式转换" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/03/JS隐式转换/" class="article-date">
@@ -118,7 +170,7 @@
 </li>
 </ul>
 <h1 id="Object-Array-Date-Function-的valueOf与toString转换结果"><a href="#Object-Array-Date-Function-的valueOf与toString转换结果" class="headerlink" title="Object, Array, Date, Function 的valueOf与toString转换结果"></a>Object, Array, Date, Function 的valueOf与toString转换结果</h1><ul>
-<li><p>Object </p>
+<li><p>Object</p>
 <ul>
 <li>valueOf =&gt; 对象本身</li>
 <li>toString =&gt; “[object Object]”</li>
@@ -134,25 +186,26 @@
 <ul>
 <li>valueOf =&gt; 给定的时间转为UNIX时间(自1 January 1970 00:00:00 UTC起算)，但是以微秒计算的数字值</li>
 <li>toString =&gt; 本地化的时间字符串</li>
-<li>Date对象在进行加号运算时，它会优先使用toString来进行转换，这与其他对象<font size="5" color="#f00">不同</font>（其他对象均为先调用valueOf）。要得出Date对象中的valueOf返回值，需要使用一元加号(+)，来强制转换它为数字类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>()) <span class="comment">// "1Wed Jul 04 2018 09:20:47 GMT+0800 (中国标准时间)" //笔者当前时间</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>Date对象在进行加号运算时，它会优先使用toString来进行转换，这与其他对象<font size="5" color="#f00">不同</font>（其他对象均为先调用valueOf）。要得出Date对象中的valueOf返回值，需要使用一元加号(+)，来强制转换它为数字类型</li>
 </ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1</span> + (<span class="keyword">new</span> <span class="built_in">Date</span>()) <span class="comment">// "1Wed Jul 04 2018 09:20:47 GMT+0800 (中国标准时间)" //笔者当前时间</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Function</p>
 <ul>
 <li>valueOf =&gt; 函数本身</li>
-<li>toString =&gt; 函数中包含的代码转为字符串值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> someFunc = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;)</span><br><span class="line"><span class="built_in">String</span>(someFunc) <span class="comment">// () =&gt; (&#123;&#125;)</span></span><br></pre></td></tr></table></figure>
+<li>toString =&gt; 函数中包含的代码转为字符串值</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> someFunc = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;&#125;)</span><br><span class="line"><span class="built_in">String</span>(someFunc) <span class="comment">// () =&gt; (&#123;&#125;)</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</li>
-</ul>
-<h1 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h1><p>  Symbol不算是一般的值也不是对象，它并没有内部自动转型的设计，所以完全不能直接用于加法运算，使用时会报错。<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a number</span></span><br><span class="line"><span class="string">'1'</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a string</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h1><p>  Symbol不算是一般的值也不是对象，它并没有内部自动转型的设计，所以完全不能直接用于加法运算，使用时会报错。</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a number</span></span><br><span class="line"><span class="string">'1'</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a string</span></span><br></pre></td></tr></table></figure>
 <h1 id="⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"><a href="#⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。" class="headerlink" title="⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"></a>⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。</h1><h1 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h1>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">b</span>:<span class="number">42</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = &#123;<span class="attr">b</span>:<span class="number">43</span>&#125;</span><br><span class="line"></span><br><span class="line">a &lt; b   <span class="comment">// false</span></span><br><span class="line">a == b  <span class="comment">// false</span></span><br><span class="line">a &gt; b   <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">a &lt;= b  <span class="comment">// true</span></span><br><span class="line">a &gt;= b  <span class="comment">// true</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  根据规范a &lt;= b被处理为a &lt; b，然后将结果反转</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjjoagw860000xe2nt77qpf02" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjjs7duqq0003bx2nds466z6n" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -209,53 +262,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjjoagw8i0004xe2nx76qxzh7" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjjs7duqa0000bx2nou91k9zd" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JS-深拷贝" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/08/JS-深拷贝/" class="article-date">
-  <time datetime="2018-04-08T03:21:12.000Z" itemprop="datePublished">2018-04-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/08/JS-深拷贝/">JS 深拷贝</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="拷贝分类"><a href="#拷贝分类" class="headerlink" title="拷贝分类"></a>拷贝分类</h1><ul>
-<li>浅拷贝</li>
-<li>深拷贝</li>
-</ul>
-<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><pre><code>111
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/04/08/JS-深拷贝/" data-id="cjjoagw8g0003xe2ndclesews" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-拷贝/">JavaScript 拷贝</a></li></ul>
 
     </footer>
   </div>
@@ -317,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjjoagw8c0001xe2nfje3v76v" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjjs7duqj0001bx2n33d4izia" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -386,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjjoagw8n0008xe2nckkpw3o3" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjjs7duqv0005bx2n3tbim41h" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Timer/">Timer</a></li></ul>
@@ -428,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjjoagw8p0009xe2n0ajscskh" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjjs7duqy0008bx2npr5keaip" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
@@ -478,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjjoagw8k0005xe2n3agzhb2l" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjjs7duqt0004bx2nas15dg7m" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
@@ -503,7 +513,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-拷贝/">JavaScript 拷贝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
     </div>
   </div>
 
@@ -513,7 +523,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS-variable-Hoisting/" style="font-size: 10px;">JS variable Hoisting</a> <a href="/tags/JavaScript-拷贝/" style="font-size: 10px;">JavaScript 拷贝</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS-Array-reduce/" style="font-size: 10px;">JS Array reduce</a> <a href="/tags/JS-variable-Hoisting/" style="font-size: 10px;">JS variable Hoisting</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
     </div>
   </div>
 
@@ -522,7 +532,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
   </div>
 
@@ -535,15 +545,15 @@
       <ul>
         
           <li>
+            <a href="/2018/07/19/模拟Array-prototype-reduce/">模拟Array.prototype.reduce</a>
+          </li>
+        
+          <li>
             <a href="/2018/07/03/JS隐式转换/">JS隐式转换</a>
           </li>
         
           <li>
             <a href="/2018/05/30/JS变量提升/">JS变量提升</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/08/JS-深拷贝/">JS 深拷贝</a>
           </li>
         
           <li>

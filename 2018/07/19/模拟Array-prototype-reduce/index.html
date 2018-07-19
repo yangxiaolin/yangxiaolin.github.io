@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>模拟Array.prototype.reduce | xiaolin Yang&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言  突然写这个的原因是面头条前端岗位的时候面试官出的一个题目。当时不会，因为以前只用过   123456789[1, 2, 3, 4].reduce((prev, next) =&amp;gt; prev + next, 0) // output 10 (1+ 2 + 3 + 4)[[1,2], [3, 4], [5, 6]].reduce((prev, next) =&amp;gt; prev.concat">
+<meta name="keywords" content="JS Array reduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模拟Array.prototype.reduce">
+<meta property="og:url" content="http://xiaolinyang.com/2018/07/19/模拟Array-prototype-reduce/index.html">
+<meta property="og:site_name" content="xiaolin Yang&#39;s blog">
+<meta property="og:description" content="前言  突然写这个的原因是面头条前端岗位的时候面试官出的一个题目。当时不会，因为以前只用过   123456789[1, 2, 3, 4].reduce((prev, next) =&amp;gt; prev + next, 0) // output 10 (1+ 2 + 3 + 4)[[1,2], [3, 4], [5, 6]].reduce((prev, next) =&amp;gt; prev.concat">
+<meta property="og:updated_time" content="2018-07-19T06:53:39.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模拟Array.prototype.reduce">
+<meta name="twitter:description" content="前言  突然写这个的原因是面头条前端岗位的时候面试官出的一个题目。当时不会，因为以前只用过   123456789[1, 2, 3, 4].reduce((prev, next) =&amp;gt; prev + next, 0) // output 10 (1+ 2 + 3 + 4)[[1,2], [3, 4], [5, 6]].reduce((prev, next) =&amp;gt; prev.concat">
+  
+    <link rel="alternate" href="/atom.xml" title="xiaolin Yang&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">xiaolin Yang&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://xiaolinyang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-模拟Array-prototype-reduce" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/19/模拟Array-prototype-reduce/" class="article-date">
+  <time datetime="2018-07-19T06:24:22.000Z" itemprop="datePublished">2018-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      模拟Array.prototype.reduce
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>  突然写这个的原因是面头条前端岗位的时候面试官出的一个题目。当时不会，因为以前只用过</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> prev + next, <span class="number">0</span>) <span class="comment">// output 10 (1+ 2 + 3 + 4)</span></span><br><span class="line">[[<span class="number">1</span>,<span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]].reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> prev.concat(next)) <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 统计字符串中数字出现的次数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="string">'12345678954543'</span>.split(<span class="string">''</span>).reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> &#123;</span><br><span class="line">  prev[next] ? prev[next]++ : prev[next] = <span class="number">1</span></span><br><span class="line">  <span class="keyword">return</span> prev</span><br><span class="line">&#125;, &#123;&#125;) <span class="comment">// &#123;1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1&#125;</span></span><br></pre></td></tr></table></figure>
+<p>  而没有深入了解过这个方法</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">语法</a></h2>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.reduce(callback[, initialValue])</span><br></pre></td></tr></table></figure>
+<p>  callback有4个参数，分别是<b>accumulator</b>, <b>currentValue</b>, <b>currentIndex</b>,<br>  <b>array</b><br>  其中：currentIndex，array是可选的。<br>  4个参数分别代表的意义是：</p>
+<ul>
+<li>accumulator： 累加器累加回调的返回值;它是在最后一次调用回调时返回的累计值。如果提供 initialValue，它的默认值就是<br>initialValue</li>
+<li>currentValue：当前参与计算的元素</li>
+<li>currentValue：当前参与计算的元素的数组下标</li>
+<li>array：当前参与运算的数组</li>
+</ul>
+<h2 id="⚠️注意"><a href="#⚠️注意" class="headerlink" title="⚠️注意"></a>⚠️注意</h2><p>  在空数组上执行<code>reduce</code>时，如果不提供<font size="3" color="#0f0">initialValue</font>会抛出错误🙅‍♂️。</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].reduce(<span class="function">(<span class="params">a, v</span>) =&gt;</span> a + v) <span class="comment">// Uncaught TypeError: Reduce of empty array with no initial value</span></span><br></pre></td></tr></table></figure>
+<h2 id="Polyfill"><a href="#Polyfill" class="headerlink" title="Polyfill"></a>Polyfill</h2><p>  polyfill猛戳<a href="(https://gist.github.com/lski/0eae0d2738831b6b0ec2b88a8a603952">这里</a>)。我帮忙搬运下</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Production steps of ECMA-262, Edition 5, 15.4.4.21</span></span><br><span class="line"><span class="comment">// Reference: http://es5.github.io/#x15.4.4.21</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="built_in">Array</span>.prototype.reduce) &#123;</span><br><span class="line">  <span class="built_in">Array</span>.prototype.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">callback <span class="regexp">/*, initialValue*/</span></span>) </span>&#123;</span><br><span class="line"><span class="meta">    'use strict'</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Array.prototype.reduce called on null or undefined'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> callback !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(callback + <span class="string">' is not a function'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> t = <span class="built_in">Object</span>(<span class="keyword">this</span>), len = t.length &gt;&gt;&gt; <span class="number">0</span>, k = <span class="number">0</span>, value;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">arguments</span>.length == <span class="number">2</span>) &#123;</span><br><span class="line">      value = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">while</span> (k &lt; len &amp;&amp; !(k <span class="keyword">in</span> t)) &#123;</span><br><span class="line">        k++; </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (k &gt;= len) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Reduce of empty array with no initial value'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      value = t[k++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (; k &lt; len; k++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (k <span class="keyword">in</span> t) &#123;</span><br><span class="line">        value = callback(value, t[k], k, t);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xiaolinyang.com/2018/07/19/模拟Array-prototype-reduce/" data-id="cjjs7dur10009bx2n3aqfd5a6" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/03/JS隐式转换/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">JS隐式转换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS-Array-reduce/" style="font-size: 10px;">JS Array reduce</a> <a href="/tags/JS-variable-Hoisting/" style="font-size: 10px;">JS variable Hoisting</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/19/模拟Array-prototype-reduce/">模拟Array.prototype.reduce</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/03/JS隐式转换/">JS隐式转换</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/30/JS变量提升/">JS变量提升</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/28/JS数据类型/">JS数据类型</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/28/Timer-in-JS/">Timer in JS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 xiaolin Yang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
