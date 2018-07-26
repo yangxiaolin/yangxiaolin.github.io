@@ -48,7 +48,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://xiaolinyang.com"></form>
@@ -58,6 +58,55 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-js闭包实现累加" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/26/js闭包实现累加/" class="article-date">
+  <time datetime="2018-07-26T07:48:11.000Z" itemprop="datePublished">2018-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/26/js闭包实现累加/">js闭包实现累加</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  闭包是Javacript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。</p>
+<h2 id="Talk-is-cheap-Show-me-the-code"><a href="#Talk-is-cheap-Show-me-the-code" class="headerlink" title="Talk is cheap, Show me the code"></a>Talk is cheap, Show me the code</h2><ul>
+<li>不用闭包实现累加</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> times = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (++times)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">counter() <span class="comment">// 1</span></span><br><span class="line">counter() <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>用闭包实现累加</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = (<span class="function"><span class="keyword">function</span>(<span class="params">baseNumber = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> times = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (++times)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">counter() <span class="comment">//1</span></span><br><span class="line">counter() <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>比较两种方式，第一种方式向其他函数暴露了times变量，一旦其他函数修改了times，结果就不准确了。<br>第二种方式则没有这种问题，只有counter函数可以修改times。times的变化只收到counter调用次数的影响。</p>
+<h3 id="⚠️"><a href="#⚠️" class="headerlink" title="⚠️"></a>⚠️</h3><pre><code>闭包虽好，可不要贪杯哦😝。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xiaolinyang.com/2018/07/26/js闭包实现累加/" data-id="cjk2aa9cv0005qm2nrt8nxqnj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-闭包/">js 闭包</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-Array-prototype-reduce" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -81,7 +130,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>  突然写这个的原因是面头条前端岗位的时候面试官出的一个题目。当时不会，因为以前只用过</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  突然写这个的原因是面头条前端岗位的时候面试官出的一个题目。当时不会，因为以前只用过</p>
   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> prev + next, <span class="number">0</span>) <span class="comment">// output 10 (1+ 2 + 3 + 4)</span></span><br><span class="line">[[<span class="number">1</span>,<span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]].reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> prev.concat(next)) <span class="comment">// [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 统计字符串中数字出现的次数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="string">'12345678954543'</span>.split(<span class="string">''</span>).reduce(<span class="function">(<span class="params">prev, next</span>) =&gt;</span> &#123;</span><br><span class="line">  prev[next] ? prev[next]++ : prev[next] = <span class="number">1</span></span><br><span class="line">  <span class="keyword">return</span> prev</span><br><span class="line">&#125;, &#123;&#125;) <span class="comment">// &#123;1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1&#125;</span></span><br></pre></td></tr></table></figure>
 <p>  而没有深入了解过这个方法</p>
 <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">语法</a></h2>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.reduce(callback[, initialValue])</span><br></pre></td></tr></table></figure>
@@ -99,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/19/Array-prototype-reduce/" data-id="cjjs7fye40000ec2ni4yt4qp4" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/19/Array-prototype-reduce/" data-id="cjk2aa9d5000bqm2nbyfdjubw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li></ul>
@@ -205,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjjs7fyen0004ec2n2zouog7c" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjk2aa9ck0001qm2na6fz07n1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -262,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjjs7fyeb0001ec2nwzv2ypyh" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjk2aa9cd0000qm2nntxlbbi5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li></ul>
@@ -327,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjjs7fyek0003ec2n5eyyme29" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjk2aa9cq0003qm2n2n0qaf6u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -396,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjjs7fyep0005ec2nxxmovvl7" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjk2aa9d00009qm2nc7mif7rl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Timer/">Timer</a></li></ul>
@@ -438,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjjs7fyex0009ec2nf3ey5gr9" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjk2aa9ct0004qm2nkiiwwd81" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
@@ -488,7 +537,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjjs7fyes0008ec2nugg2n9pn" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjk2aa9cy0008qm2n3kozb68f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
@@ -513,7 +562,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-闭包/">js 闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
     </div>
   </div>
 
@@ -523,14 +572,14 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS-Array-reduce/" style="font-size: 10px;">JS Array reduce</a> <a href="/tags/JS-variable-Hoisting/" style="font-size: 10px;">JS variable Hoisting</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS-Array-reduce/" style="font-size: 10px;">JS Array reduce</a> <a href="/tags/JS-variable-Hoisting/" style="font-size: 10px;">JS variable Hoisting</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/js-闭包/" style="font-size: 10px;">js 闭包</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
@@ -540,9 +589,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/07/26/js闭包实现累加/">js闭包实现累加</a>
+          </li>
         
           <li>
             <a href="/2018/07/19/Array-prototype-reduce/">Array.prototype.reduce</a>
@@ -558,10 +611,6 @@
         
           <li>
             <a href="/2018/02/28/JS数据类型/">JS数据类型</a>
-          </li>
-        
-          <li>
-            <a href="/2018/02/28/Timer-in-JS/">Timer in JS</a>
           </li>
         
       </ul>

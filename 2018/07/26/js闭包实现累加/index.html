@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Js useful skill | xiaolin Yang&#39;s blog</title>
+  <title>js闭包实现累加 | xiaolin Yang&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Q1  how to count odd and even number widthout if statement A1  123456789const numberArray = [1, 2, 3, 4, 4, 6, 4, 7]let oddNumber = 0, evenNumver = 0numberArray.map((item) =&amp;gt; &amp;#123;  oddNumber += M">
-<meta name="keywords" content="js,skill">
+  <meta name="description" content="前言  闭包是Javacript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。 Talk is cheap, Show me the code 不用闭包实现累加  1234567let times = 0;function counter() &amp;#123;  return (++times)&amp;#125;counter() // 1counter() // 2  用闭包实现累加  12">
+<meta name="keywords" content="js 闭包">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Js useful skill">
-<meta property="og:url" content="http://xiaolinyang.com/2018/02/26/js-useful-skill/index.html">
+<meta property="og:title" content="js闭包实现累加">
+<meta property="og:url" content="http://xiaolinyang.com/2018/07/26/js闭包实现累加/index.html">
 <meta property="og:site_name" content="xiaolin Yang&#39;s blog">
-<meta property="og:description" content="Q1  how to count odd and even number widthout if statement A1  123456789const numberArray = [1, 2, 3, 4, 4, 6, 4, 7]let oddNumber = 0, evenNumver = 0numberArray.map((item) =&amp;gt; &amp;#123;  oddNumber += M">
-<meta property="og:updated_time" content="2018-02-26T05:16:04.000Z">
+<meta property="og:description" content="前言  闭包是Javacript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。 Talk is cheap, Show me the code 不用闭包实现累加  1234567let times = 0;function counter() &amp;#123;  return (++times)&amp;#125;counter() // 1counter() // 2  用闭包实现累加  12">
+<meta property="og:updated_time" content="2018-07-26T08:15:50.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Js useful skill">
-<meta name="twitter:description" content="Q1  how to count odd and even number widthout if statement A1  123456789const numberArray = [1, 2, 3, 4, 4, 6, 4, 7]let oddNumber = 0, evenNumver = 0numberArray.map((item) =&amp;gt; &amp;#123;  oddNumber += M">
+<meta name="twitter:title" content="js闭包实现累加">
+<meta name="twitter:description" content="前言  闭包是Javacript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。 Talk is cheap, Show me the code 不用闭包实现累加  1234567let times = 0;function counter() &amp;#123;  return (++times)&amp;#125;counter() // 1counter() // 2  用闭包实现累加  12">
   
     <link rel="alternate" href="/atom.xml" title="xiaolin Yang&#39;s blog" type="application/atom+xml">
   
@@ -62,10 +62,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-js-useful-skill" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-js闭包实现累加" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/02/26/js-useful-skill/" class="article-date">
-  <time datetime="2018-02-26T05:08:34.000Z" itemprop="datePublished">2018-02-26</time>
+    <a href="/2018/07/26/js闭包实现累加/" class="article-date">
+  <time datetime="2018-07-26T07:48:11.000Z" itemprop="datePublished">2018-07-26</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Js useful skill
+      js闭包实现累加
     </h1>
   
 
@@ -84,18 +84,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h3><p>  how to count odd and even number widthout if statement</p>
-<h3 id="A1"><a href="#A1" class="headerlink" title="A1"></a>A1</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numberArray = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> oddNumber = <span class="number">0</span>, evenNumver = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">numberArray.map(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">  oddNumber += <span class="built_in">Math</span>.abs(item % <span class="number">2</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">evenNumver = numberArray.length - oddNumber</span><br></pre></td></tr></table></figure>
-<h3 id="Q2"><a href="#Q2" class="headerlink" title="Q2"></a>Q2</h3><p>  how to get timestamp fastest</p>
-<h3 id="A2"><a href="#A2" class="headerlink" title="A2"></a>A2</h3>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="keyword">new</span> <span class="built_in">Date</span>)</span><br></pre></td></tr></table></figure>
-
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  闭包是Javacript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。</p>
+<h2 id="Talk-is-cheap-Show-me-the-code"><a href="#Talk-is-cheap-Show-me-the-code" class="headerlink" title="Talk is cheap, Show me the code"></a>Talk is cheap, Show me the code</h2><ul>
+<li>不用闭包实现累加</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> times = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (++times)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">counter() <span class="comment">// 1</span></span><br><span class="line">counter() <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>用闭包实现累加</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = (<span class="function"><span class="keyword">function</span>(<span class="params">baseNumber = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> times = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (++times)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">counter() <span class="comment">//1</span></span><br><span class="line">counter() <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>比较两种方式，第一种方式向其他函数暴露了times变量，一旦其他函数修改了times，结果就不准确了。<br>第二种方式则没有这种问题，只有counter函数可以修改times。times的变化只收到counter调用次数的影响。</p>
+<h3 id="⚠️"><a href="#⚠️" class="headerlink" title="⚠️"></a>⚠️</h3><pre><code>闭包虽好，可不要贪杯哦😝。
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjk2aa9ct0004qm2nkiiwwd81" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/07/26/js闭包实现累加/" data-id="cjk2aa9cv0005qm2nrt8nxqnj" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-闭包/">js 闭包</a></li></ul>
 
     </footer>
   </div>
@@ -103,19 +110,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/02/28/Timer-in-JS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Timer in JS
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/02/26/Quick-start-Node-js/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/07/19/Array-prototype-reduce/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Quick start Node.js</div>
+      <div class="article-nav-title">Array.prototype.reduce</div>
     </a>
   
 </nav>
