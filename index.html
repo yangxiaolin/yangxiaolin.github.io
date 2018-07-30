@@ -89,14 +89,14 @@
 <ul>
 <li>用闭包实现累加</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = (<span class="function"><span class="keyword">function</span>(<span class="params">baseNumber = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> times = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (++times)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">counter() <span class="comment">//1</span></span><br><span class="line">counter() <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = (<span class="function"><span class="keyword">function</span>(<span class="params">baseNumber = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> times = baseNumber;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (++times)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">counter() <span class="comment">//1</span></span><br><span class="line">counter() <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
 <p>比较两种方式，第一种方式向其他函数暴露了times变量，一旦其他函数修改了times，结果就不准确了。<br>第二种方式则没有这种问题，只有counter函数可以修改times。times的变化只收到counter调用次数的影响。</p>
 <h3 id="⚠️"><a href="#⚠️" class="headerlink" title="⚠️"></a>⚠️</h3><pre><code>闭包虽好，可不要贪杯哦😝。
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/26/js闭包实现累加/" data-id="cjk2aa9cv0005qm2nrt8nxqnj" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/07/26/js闭包实现累加/" data-id="cjk7wi9310004i42n1x0pdj36" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-闭包/">js 闭包</a></li></ul>
@@ -148,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/19/Array-prototype-reduce/" data-id="cjk2aa9d5000bqm2nbyfdjubw" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/07/19/Array-prototype-reduce/" data-id="cjk7wi92j0000i42nmtpth9v3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li></ul>
@@ -254,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjk2aa9ck0001qm2na6fz07n1" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjk7wi9330005i42ns2kfk9n8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -311,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjk2aa9cd0000qm2nntxlbbi5" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjk7wi92q0001i42nq4w51t3m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li></ul>
@@ -376,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjk2aa9cq0003qm2n2n0qaf6u" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjk7wi92y0003i42nx8aj9qpa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -445,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjk2aa9d00009qm2nc7mif7rl" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjk7wi93b000bi42nsqjpdg8x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Timer/">Timer</a></li></ul>
@@ -487,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjk2aa9ct0004qm2nkiiwwd81" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjk7wi9390009i42n0vegwz0j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
@@ -537,7 +537,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjk2aa9cy0008qm2n3kozb68f" class="article-share-link">Share</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjk7wi9360008i42ns3jxrt4s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
