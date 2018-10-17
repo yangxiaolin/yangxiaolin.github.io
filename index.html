@@ -48,7 +48,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://xiaolinyang.com"></form>
@@ -129,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/08/09/this 的那些事/" data-id="cjkmeuhci0009bo2ncb8t5uk9" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/08/09/this 的那些事/" data-id="cjncqyu670009972n4zn2vj0e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-this/">JavaScript this</a></li></ul>
@@ -178,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/26/js闭包实现累加/" data-id="cjkmeuhcl000bbo2nfy08pyaz" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/26/js闭包实现累加/" data-id="cjncqyu640008972nu2zqni8z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-闭包/">js 闭包</a></li></ul>
@@ -230,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/19/Array-prototype-reduce/" data-id="cjkmeuhbq0000bo2n3fmyth6u" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/19/Array-prototype-reduce/" data-id="cjncqyu5x0003972n6ykp4e2z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li></ul>
@@ -332,11 +332,16 @@
 <h1 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h1><p>  Symbol不算是一般的值也不是对象，它并没有内部自动转型的设计，所以完全不能直接用于加法运算，使用时会报错。</p>
   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a number</span></span><br><span class="line"><span class="string">'1'</span> + <span class="built_in">Symbol</span>(<span class="string">'1'</span>) <span class="comment">// Uncaught TypeError: Cannot convert a Symbol value to a string</span></span><br></pre></td></tr></table></figure>
 <h1 id="⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"><a href="#⚠️-字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算-concatenation-的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。" class="headerlink" title="⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。"></a>⚠️ 字符串在加号运算有最高的优先运算，与字符串相加必定是字符串连接运算。数字与其他类型作相加时，除了字符串会优先使用字符串连接运算(concatenation)的，其他都要依照数字为优先，所以除了字符串之外的其他原始数据类型，都要转换为数字来进行数学的相加运算。当数字与字符串以外的，其他原始数据类型直接使用加号运算时，就是转为数字再运算。</h1><h1 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h1>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">b</span>:<span class="number">42</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = &#123;<span class="attr">b</span>:<span class="number">43</span>&#125;</span><br><span class="line"></span><br><span class="line">a &lt; b   <span class="comment">// false</span></span><br><span class="line">a == b  <span class="comment">// false</span></span><br><span class="line">a &gt; b   <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">a &lt;= b  <span class="comment">// true</span></span><br><span class="line">a &gt;= b  <span class="comment">// true</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  当比较运算符有不是原始数据的时候，会根据上面的 ToPrimitive 规则先转换为原始数据结构再进行比较</span></span><br><span class="line"><span class="comment">  使得 a &lt;= b  变成了 '[object Object]' &lt;= '[object Object]'。而字符串比较会一个一个字符比较charCode。故会得到true</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="彩蛋-最近看到的"><a href="#彩蛋-最近看到的" class="headerlink" title="彩蛋(最近看到的)"></a>彩蛋(最近看到的)</h3><p>如果</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a == <span class="number">2</span> &amp;&amp; a == <span class="number">3</span> &amp;&amp; a == <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>问<code>a</code>是什么?</p>
+<p>答案在👇</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;</span><br><span class="line">  x: <span class="number">1</span>,</span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">this</span>.x += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjkmeuhc60003bo2ngwxqolk3" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/07/03/JS隐式转换/" data-id="cjncqyu5r0001972nibgqsrhi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -393,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjkmeuhby0001bo2nzdotru05" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/05/30/JS变量提升/" data-id="cjncqyu5i0000972n23kpucdp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li></ul>
@@ -458,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjkmeuhc90004bo2nueopj0wt" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/JS数据类型/" data-id="cjncqyu6a000b972npjca22qa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
@@ -527,7 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjkmeuhce0008bo2nlrdp7tje" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/28/Timer-in-JS/" data-id="cjncqyu620005972nzmlqe5vh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Timer/">Timer</a></li></ul>
@@ -569,7 +574,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjkmeuhco000dbo2n6mdrx06j" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/js-useful-skill/" data-id="cjncqyu6c000d972nnxurnjxm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/skill/">skill</a></li></ul>
@@ -619,7 +624,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjkmeuhcc0005bo2n5wpzb8m6" class="article-share-link">Teilen</a>
+      <a data-url="http://xiaolinyang.com/2018/02/26/Quick-start-Node-js/" data-id="cjncqyu600004972nsvoemce7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
@@ -661,7 +666,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
@@ -671,7 +676,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
