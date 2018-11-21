@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS之hoisting | xiaolin Yang&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言  写这篇博客是在看完这篇文章后去查看ES3的文档后写下的。这篇文章帮我消除了很多疑惑。  本文中的例子均在 Chrome70及Node v10.4.1中验证过。 例子例1 1234567function test(v) &amp;#123;  console.log(v)  var v = 10&amp;#125;test(1) // will log 1 例2 123456function test(v)">
+<meta name="keywords" content="JS Hoisting">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS之hoisting">
+<meta property="og:url" content="http://xiaolinyang.com/2018/11/21/JS之hoisting/index.html">
+<meta property="og:site_name" content="xiaolin Yang&#39;s blog">
+<meta property="og:description" content="前言  写这篇博客是在看完这篇文章后去查看ES3的文档后写下的。这篇文章帮我消除了很多疑惑。  本文中的例子均在 Chrome70及Node v10.4.1中验证过。 例子例1 1234567function test(v) &amp;#123;  console.log(v)  var v = 10&amp;#125;test(1) // will log 1 例2 123456function test(v)">
+<meta property="og:updated_time" content="2018-11-21T05:14:55.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS之hoisting">
+<meta name="twitter:description" content="前言  写这篇博客是在看完这篇文章后去查看ES3的文档后写下的。这篇文章帮我消除了很多疑惑。  本文中的例子均在 Chrome70及Node v10.4.1中验证过。 例子例1 1234567function test(v) &amp;#123;  console.log(v)  var v = 10&amp;#125;test(1) // will log 1 例2 123456function test(v)">
+  
+    <link rel="alternate" href="/atom.xml" title="xiaolin Yang&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">xiaolin Yang&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://xiaolinyang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JS之hoisting" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/21/JS之hoisting/" class="article-date">
+  <time datetime="2018-11-21T03:51:59.000Z" itemprop="datePublished">2018-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JS之hoisting
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  写这篇博客是在看完<a href="https://blog.techbridge.cc/2018/11/10/javascript-hoisting/" target="_blank" rel="noopener">这篇文章</a>后去查看<a href="https://www-archive.mozilla.org/js/language/E262-3.pdf" target="_blank" rel="noopener">ES3的文档</a>后写下的。这篇文章帮我消除了很多疑惑。<br>  本文中的例子均在 Chrome70及Node v10.4.1中验证过。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>例1</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(v)</span><br><span class="line">  <span class="keyword">var</span> v = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>) <span class="comment">// will log 1</span></span><br></pre></td></tr></table></figure>
+<p>例2</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(v)</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">v</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>) <span class="comment">// will log function v() &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h3><p>在执行函数时可以拆分为两个步骤（1、进入EC(execution context)并创建VO(variable object)。2、执行函数语句）。<br>在例1里，在执行函数test后，进入EC, 创建一个VO, VO如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  v: <span class="number">1</span>; <span class="comment">// 这个1是执行函数时传入的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可能会感到很疑惑，不是也声明了一个变量v吗？为什么v的值不是10？<br>在规范里有这么一段话：<br><i><br>If there is already a property of the variable object with<br>the name of a declared variable, the value of the property and its attributes are not changed.<br></i><br>即如果VO里已经有了一个属性和 变量声明语句创建的变量 相同时，VO里该属性的值不会发生改变。</p>
+<p>进入EC并创建完VO后，开始一行行执行代码。这就是为什么例1会打印1的原因。因为在这个时候VO里的v确实是1，不过在执行到<br><code>var v = 10</code>这行时，VO里的v就被赋值为10了。</p>
+<p>在例2里又稍微有点不同，因为例2里是声明了一个和变量名称相同的函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">v</span>(<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>在规范里有这么一段话：<br><i><br>If the variable object<br>already has a property with this name, replace its value and attributes<br></i><br>即如果VO里已经有了一个属性和 声明的函数名称 相同时，VO里该属性的值就会被该函数覆盖掉。<br>那么例2的执行结果就很好解释了</p>
+<p>进入test函数创建VO，最开始的VO是这样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  v: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过该函数里声明了一个函数v,按照规范，此时的VO已经变为这样👇</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  v: <span class="function"><span class="keyword">function</span> <span class="title">v</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这就是为什么例2会打印<code>function v</code>的原因,因为此时VO里的v是声明的函数v。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>在执行函数时会有如下几个步骤：</p>
+<ul>
+<li>将该函数压入执行栈</li>
+<li>进入该EC，创建一个VO</li>
+<li>将函数的参数放到VO里并设定好值，如果没有值，就设为<code>undefined</code></li>
+<li>如果执行的函数体里有函数声明，则将该函数也放到VO里，有和该函数同名的属性就覆盖</li>
+<li>如果执行的函数体里有变量声明，则将变量放到VO里，如果有同名的属性就忽略掉声明的变量</li>
+</ul>
+<p><b>其实就一句话，在VO里，声明的函数会覆盖与其同名的属性，声明的变量如果有与其同名的属性，则会忽略声明的变量</b></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xiaolinyang.com/2018/11/21/JS之hoisting/" data-id="cjoqtbrbx0000c22nzdb8z15l" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-Hoisting/">JS Hoisting</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/09/this 的那些事/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">this 的那些事</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Hoisting/">JS Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-this/">JavaScript this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-闭包/">js 闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS-Array-reduce/" style="font-size: 10px;">JS Array reduce</a> <a href="/tags/JS-Hoisting/" style="font-size: 10px;">JS Hoisting</a> <a href="/tags/JS-variable-Hoisting/" style="font-size: 10px;">JS variable Hoisting</a> <a href="/tags/JavaScript-this/" style="font-size: 10px;">JavaScript this</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/js-闭包/" style="font-size: 10px;">js 闭包</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/21/JS之hoisting/">JS之hoisting</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/this 的那些事/">this 的那些事</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/26/js闭包实现累加/">js闭包实现累加</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/19/Array-prototype-reduce/">Array.prototype.reduce</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/03/JS隐式转换/">JS隐式转换</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 xiaolin Yang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
