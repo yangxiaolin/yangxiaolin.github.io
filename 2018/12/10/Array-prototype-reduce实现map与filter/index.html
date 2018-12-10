@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Array.prototype.reduce实现map与filter | xiaolin Yang&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="继上一篇 Array.prototype.reduce 后，我立志要好好学习。琢磨了很久，再加上最近看了几篇”JS 函数式编程”的文章和书籍后，然后有感而发写下了这篇文章。 Array.prototype.map 方法相信大家都用的很熟悉了，同时我也相信很多人已经自己实现了 map 函数。没有实现过自己的map ? 没关系，我们先用for 循环来实现下。 123456789101112131415">
+<meta name="keywords" content="JS Array reduce map filter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Array.prototype.reduce实现map与filter">
+<meta property="og:url" content="http://xiaolinyang.com/2018/12/10/Array-prototype-reduce实现map与filter/index.html">
+<meta property="og:site_name" content="xiaolin Yang&#39;s blog">
+<meta property="og:description" content="继上一篇 Array.prototype.reduce 后，我立志要好好学习。琢磨了很久，再加上最近看了几篇”JS 函数式编程”的文章和书籍后，然后有感而发写下了这篇文章。 Array.prototype.map 方法相信大家都用的很熟悉了，同时我也相信很多人已经自己实现了 map 函数。没有实现过自己的map ? 没关系，我们先用for 循环来实现下。 123456789101112131415">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/8/1678d05a660d1a9a?w=434&h=141&f=png&s=25992">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/12/8/1678d1b8f4033dd4?w=691&h=194&f=png&s=35940">
+<meta property="og:updated_time" content="2018-12-10T09:31:00.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Array.prototype.reduce实现map与filter">
+<meta name="twitter:description" content="继上一篇 Array.prototype.reduce 后，我立志要好好学习。琢磨了很久，再加上最近看了几篇”JS 函数式编程”的文章和书籍后，然后有感而发写下了这篇文章。 Array.prototype.map 方法相信大家都用的很熟悉了，同时我也相信很多人已经自己实现了 map 函数。没有实现过自己的map ? 没关系，我们先用for 循环来实现下。 123456789101112131415">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/12/8/1678d05a660d1a9a?w=434&h=141&f=png&s=25992">
+  
+    <link rel="alternate" href="/atom.xml" title="xiaolin Yang&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">xiaolin Yang&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://xiaolinyang.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="js-Array-prototype-reduce实现map与filter" class="article article-type-js" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/10/Array-prototype-reduce实现map与filter/" class="article-date">
+  <time datetime="2018-12-10T09:29:02.000Z" itemprop="datePublished">2018-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Array.prototype.reduce实现map与filter
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>继上一篇 <a href="https://juejin.im/post/5bc6de295188255c372f8697" target="_blank" rel="noopener">Array.prototype.reduce</a> 后，我立志要好好学习。琢磨了很久，再加上最近看了几篇”JS 函数式编程”的文章和书籍后，然后有感而发写下了这篇文章。</p>
+<p><code>Array.prototype.map</code> 方法相信大家都用的很熟悉了，同时我也相信很多人已经自己实现了 <code>map</code> 函数。没有实现过自己的<code>map</code> ? 没关系，我们先用<code>for</code> 循环来实现下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.selfMap = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> ary = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> result = []</span><br><span class="line">    <span class="keyword">const</span> [ fn, thisArg ] = [].slice.call(<span class="built_in">arguments</span>)</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(fn + <span class="string">'is not a function'</span>)  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; ary.length; i++) &#123;</span><br><span class="line">      result.push(fn.call(thisArg, ary[i], i, ary))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">a.selfMap(<span class="function"><span class="params">item</span> =&gt;</span> item + <span class="number">1</span>) <span class="comment">// [ 2, 3, 4, 5 ]</span></span><br></pre></td></tr></table></figure>
+<p>实现了自己的<code>map</code>，还不是美滋滋。</p>
+<p><strong>但是</strong>，这和本文没有半点关系，因为我是要用<code>reduce</code>实现<code>map</code>啊🤣🤣🤣</p>
+<p>众所周知，<code>map</code>函数需要传一个函数的，还有一个可选的<code>this</code>参数，但是我发现第二个参数大家很少用到，也不怎么注意，我也是这样。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">return</span> item</span><br><span class="line">&#125;, &#123; <span class="attr">msg</span>: <span class="string">'mapping'</span> &#125;)</span><br></pre></td></tr></table></figure>
+<p>上面👆这段代码块不仅会返回一个新的数组，还会在控制台打印三次<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">msg</span>: <span class="string">'mapping'</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>有图有真相👇</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/8/1678d05a660d1a9a?w=434&h=141&f=png&s=25992"></p>
+<p>可能有的小伙伴在验证我上面的例子时，会使用<code>箭头函数</code>，然后发现总是打印<code>window</code>，就是下面这样👇</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/12/8/1678d1b8f4033dd4?w=691&h=194&f=png&s=35940"></p>
+<p>然后心里暗道“无耻小儿，竟敢骗我”。心里苦啊，箭头函数在声明时就绑定了它外层的this(此例的<code>this</code>为<code>window</code>，而且还改变不了, 也就是说<code>{ msg: ‘mapping’ }</code>相当于白传了)😭</p>
+<p>似乎废话有点多额，那我们先用<code>reduce</code>来实现<code>map</code>吧（默认运行环境支持<code>Array.prototype.reduce</code>，如果不支持的话，那还写个🔨）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这次不把方法写在Array的原型上</span></span><br><span class="line"><span class="keyword">const</span> reduceMap = <span class="function">(<span class="params">fn, thisArg <span class="regexp">/*真想去掉thisArg这个参数*/</span> </span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 不怎么愿意写下面这两个判断条件</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(fn + <span class="string">'is not a function'</span>)  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(list)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'list must be a Array'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (list.length === <span class="number">0</span>) <span class="keyword">return</span> []</span><br><span class="line">        <span class="keyword">return</span> list.reduce(<span class="function">(<span class="params">acc, value, index</span>) =&gt;</span> &#123;</span><br><span class="line">            acc.push(fn.call(thisArg, value, index, list))</span><br><span class="line">            <span class="keyword">return</span> acc</span><br><span class="line">        &#125;, [])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 来使用下怎么样🧐</span></span><br><span class="line"></span><br><span class="line">reduceMap(<span class="function"><span class="params">x</span> =&gt;</span> x + <span class="number">1</span>)([ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]) <span class="comment">// [ 2, 3, 4 ]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapAry1 = reduceMap(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">return</span> item + <span class="number">1</span></span><br><span class="line">&#125;, &#123; <span class="attr">msg</span>: <span class="string">'mapping'</span> &#125;)([ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]) </span><br><span class="line"><span class="comment">// [ 2, 3, 4 ] </span></span><br><span class="line"><span class="comment">// logging &#123; msg: 'mapping' &#125; three times</span></span><br></pre></td></tr></table></figure>
+<p>👆实现的原理相信大家应该都懂吧。</p>
+<p>打铁当趁热，继续来实现<code>filter</code>吧。</p>
+<ul>
+<li>for 循环实现版</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.selfFilter = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ary = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">const</span> result = []</span><br><span class="line">  <span class="keyword">const</span> [ fn , thisArg ] = [].slice.call(<span class="built_in">arguments</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(fn + <span class="string">'is not a function'</span>)  </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; ary.length; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (fn.call(thisArg, ary[i], i, ary)) &#123;</span><br><span class="line">          result.push(ary[i])</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">a.selfFilter(<span class="function"><span class="params">item</span> =&gt;</span> item % <span class="number">2</span> === <span class="number">0</span>) <span class="comment">// [ 2 ]</span></span><br><span class="line">a.selfFilter(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">  <span class="keyword">return</span> item % <span class="number">2</span> === <span class="number">0</span></span><br><span class="line">&#125;, &#123;&#125;)</span><br><span class="line"><span class="comment">// [ 2 ]</span></span><br><span class="line"><span class="comment">// logging &#123;&#125; three times</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>reduce 实现版</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 同map, 不定义在Array的原型上</span></span><br><span class="line"><span class="keyword">const</span> reduceFilter = <span class="function">(<span class="params">fn, thisAry <span class="regexp">/* thisAry知不知你好讨厌啊 */</span> </span>)  =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> fn !== <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(fn + <span class="string">'is not a function'</span>)  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(list)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'list must be a Array'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (list.length === <span class="number">0</span>) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">return</span> list.reduce(<span class="function">(<span class="params">acc, value, index</span>) =&gt;</span> &#123;</span><br><span class="line">        fn.call(thisAry, value, index, list) ? acc.push(value) : <span class="literal">null</span></span><br><span class="line">        <span class="keyword">return</span> acc</span><br><span class="line">    &#125;, [])</span><br><span class="line">  &#125;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reduceFilter(<span class="function"><span class="params">x</span> =&gt;</span> x % <span class="number">2</span> === <span class="number">0</span>)([ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]) <span class="comment">// [ 2 ]</span></span><br></pre></td></tr></table></figure>
+<p>文章里掺杂了些许<strong>函数式编程</strong>里面的东西，因为我也才开始学函数式编程不久，就不在大佬们面前献丑了。如果文章里有哪里写的不对或者不够准确，亦或者是觉得有写的不好的地方，烦请各位指正，也让我改正。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://xiaolinyang.com/2018/12/10/Array-prototype-reduce实现map与filter/" data-id="cjpi4aaua0000nd2n8uffw2fa" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS-Array-reduce-map-filter/">JS Array reduce map filter</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/21/JS之hoisting/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">JS之hoisting</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Array-reduce/">JS Array reduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Array-reduce-map-filter/">JS Array reduce map filter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-Hoisting/">JS Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS-variable-Hoisting/">JS variable Hoisting</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-this/">JavaScript this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Timer/">Timer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js-闭包/">js 闭包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/skill/">skill</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS-Array-reduce/" style="font-size: 10px;">JS Array reduce</a> <a href="/tags/JS-Array-reduce-map-filter/" style="font-size: 10px;">JS Array reduce map filter</a> <a href="/tags/JS-Hoisting/" style="font-size: 10px;">JS Hoisting</a> <a href="/tags/JS-variable-Hoisting/" style="font-size: 10px;">JS variable Hoisting</a> <a href="/tags/JavaScript-this/" style="font-size: 10px;">JavaScript this</a> <a href="/tags/Timer/" style="font-size: 10px;">Timer</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/js-闭包/" style="font-size: 10px;">js 闭包</a> <a href="/tags/skill/" style="font-size: 10px;">skill</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/10/Array-prototype-reduce实现map与filter/">Array.prototype.reduce实现map与filter</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/21/JS之hoisting/">JS之hoisting</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/09/this 的那些事/">this 的那些事</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/26/js闭包实现累加/">js闭包实现累加</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/19/Array-prototype-reduce/">Array.prototype.reduce</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 xiaolin Yang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
